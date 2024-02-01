@@ -18,6 +18,8 @@ var config = {
 };
 
 var player;
+var platforms;
+var cursors;
 
 var game = new Phaser.Game(config);
 
@@ -33,6 +35,9 @@ function create() {
     platforms = this.physics.add.staticGroup();
 
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(600, 400, 'ground');
+    platforms.create(50, 250, 'ground');
+    platforms.create(750, 220, 'ground');
 
     player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -42,6 +47,11 @@ function create() {
     this.physics.add.collider(player, platforms);
 
     cursors = this.input.keyboard.createCursorKeys();
+
+    this.physics.world.setBounds(0, 0, 1600, 600);
+
+    this.cameras.main.setBounds(0, 0, 1600, 600);
+    this.cameras.main.startFollow(player, true, 0.05, 0.05);
 }
 
 function update() {
